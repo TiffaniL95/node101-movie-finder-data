@@ -106,3 +106,5 @@ describe("server module", function() {
     })
 	});
 });
+
+app.get
