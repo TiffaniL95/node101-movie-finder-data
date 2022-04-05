@@ -16,22 +16,23 @@ let movieData = [
     
 ]
 
+//create object with i:imdbID and t:Title
+//access object property based on req.url[2]
+//only run one loop
 
 app.get('/', (req, res) => {
     
 
     if(req.url[2] == 'i'){
-        console.log('25 if i', req.query);
         
         for(let i = 0; i<movieData.length; i++){
                 
-                if(movieData[i]['imdbID'] == req.query.i){
-                    console.log('30 if i', movieData[i]);
+            if(movieData[i]['imdbID'] == req.query.i){
 
                     res.send(movieData[i]);
                     return
-                }
             }
+        }
 
     } 
     
@@ -40,7 +41,6 @@ app.get('/', (req, res) => {
         for(let j = 0; j<movieData.length; j++){           
 
             if(movieData[j]['Title'].toLowerCase() == req.query.t){
-                console.log('46 if t', movieData[j]);
 
                 res.send(movieData[j]);
                 return
@@ -48,18 +48,16 @@ app.get('/', (req, res) => {
         }
     }
         
-        axios.get(`http://www.omdbapi.com/${req.url}&apikey=${process.env.API_KEY}`) 
+        axios.get(`http://www.omdbapi.com${req.url}&apikey=${process.env.API_KEY}`) 
         
         .then((response) => {
             // console.log(response.data)            
             let {Title, Year, imdbID} = response.data;
-            console.log('new object', Title, Year, imdbID)
             
             movieData.push({Title, Year, imdbID});
-            console.log('updated array', movieData);
 
             res.send({Title, Year, imdbID});
-            })
+        })
     
         .catch((err) => {
             console.log(err)
