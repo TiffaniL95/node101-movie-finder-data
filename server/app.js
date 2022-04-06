@@ -28,7 +28,7 @@ let searchBy = {
             let query = searchBy[req.url[2]]
             let search = req.query.i || req.query.t
 
-                if(movieData[i][query].toLowerCase() == search){
+                if(movieData[i][query].toLowerCase() == search.toLowerCase()){
                     console.log('if statement')
 
                     res.send(movieData[i]);
